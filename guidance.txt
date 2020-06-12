@@ -1,0 +1,25 @@
+All code for automatic classification of microseismic and blasting signals
+0. Preparation
+   Before running code, please add all files into path of matlab
+1. UseI-CEEMDAN and HT to time-frequency spectrum of each signal
+   I-CEEMDAN.m and emd.m is used to decompose each signal to obtain their corresponding IMFs.
+   disp_hhs.m, hhsspectrum.m, hht_2d.m, instrfeq.m, io.m, toimage.m are adopted to produce HHT spectrum.
+2. Produce singular values of each HHT spectrum
+    using built-in function SVD.m in MATLAB software to produce singular values
+3. Analyze statistical charateristics of obtained singular valuses
+    uisng statistics_singular.m function to obtain statistical features. 时频谱的奇异值的分解结果.mat
+    is the input of this code and input_ML.mat is the output. input_ML would be used as the input of 
+    the used machine learning algorithm. If you have any interest, please contatc with me
+4. Tranin and test
+    RF_SVD_difft_trian_5.m is used to train classficaiton model using differernt number of samples that are randomly chosen, 
+    and test the accuracy of different models, in whcih input_ML.mat is the input. accuracy_num_train_5.m is used to recod the accuracy 
+    of  models with differrent number of training samples. The calculation process is repeated 100 times.
+5. Pick the most discrimant features.
+    RF_SVD_OOB_gini_diff_num.m is used to calculate the OOB errors and Gini errors, and then Pick_features.m is used to pick the 
+    most discrimant features.
+6. optimize the originial model based on OOB and Gini
+    youhua_classification_Gini.m is used to calculate the performance of optimized RF models based on features using Gini index,
+    in which Gini.mat is the input of this code.
+    youhua_classification_OOB.m is used to calculate the performance of optimized RF models based on features using OOB error.
+    in which OOB.mat is the input of this code.
+
